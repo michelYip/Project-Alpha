@@ -62,12 +62,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\01_Scripts\GameController.cs" />
     <Compile Include="Assets\01_Scripts\PlayerController.cs" />
+    <Compile Include="Assets\01_Scripts\ReflectionController.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>M:/Bibliotheque/Documents/Unity Projects/Project-Alpha/Project-Alpha-Unity/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VSCode.Editor">
       <HintPath>M:/Bibliotheque/Documents/Unity Projects/Project-Alpha/Project-Alpha-Unity/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.Core.Editor">
+      <HintPath>M:/Bibliotheque/Documents/Unity Projects/Project-Alpha/Project-Alpha-Unity/Library/ScriptAssemblies/Unity.RenderPipelines.Core.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.Core.Runtime">
+      <HintPath>M:/Bibliotheque/Documents/Unity Projects/Project-Alpha/Project-Alpha-Unity/Library/ScriptAssemblies/Unity.RenderPipelines.Core.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>M:/Bibliotheque/Documents/Unity Projects/Project-Alpha/Project-Alpha-Unity/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
@@ -84,18 +92,6 @@
     <Reference Include="Unity.Rider.Editor">
       <HintPath>M:/Bibliotheque/Documents/Unity Projects/Project-Alpha/Project-Alpha-Unity/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.TextMeshPro">
-      <HintPath>M:/Bibliotheque/Documents/Unity Projects/Project-Alpha/Project-Alpha-Unity/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor.UI">
-      <HintPath>M:/Bibliotheque/Documents/Unity Projects/Project-Alpha/Project-Alpha-Unity/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.RenderPipelines.Core.Editor">
-      <HintPath>M:/Bibliotheque/Documents/Unity Projects/Project-Alpha/Project-Alpha-Unity/Library/ScriptAssemblies/Unity.RenderPipelines.Core.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.RenderPipelines.Core.Runtime">
-      <HintPath>M:/Bibliotheque/Documents/Unity Projects/Project-Alpha/Project-Alpha-Unity/Library/ScriptAssemblies/Unity.RenderPipelines.Core.Runtime.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary">
       <HintPath>M:/Bibliotheque/Documents/Unity Projects/Project-Alpha/Project-Alpha-Unity/Library/ScriptAssemblies/Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll</HintPath>
     </Reference>
@@ -104,6 +100,12 @@
     </Reference>
     <Reference Include="Unity.RenderPipelines.Core.ShaderLibrary">
       <HintPath>M:/Bibliotheque/Documents/Unity Projects/Project-Alpha/Project-Alpha-Unity/Library/ScriptAssemblies/Unity.RenderPipelines.Core.ShaderLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.TextMeshPro">
+      <HintPath>M:/Bibliotheque/Documents/Unity Projects/Project-Alpha/Project-Alpha-Unity/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.UI">
+      <HintPath>M:/Bibliotheque/Documents/Unity Projects/Project-Alpha/Project-Alpha-Unity/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>M:/Program Files (x86)/2019.3.2f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
