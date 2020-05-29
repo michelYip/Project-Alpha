@@ -33,10 +33,9 @@ public class ReflectionController : PlayerController
             //Debug.Log("Vector from player to mirror : " + playerToMirror);
             //Debug.Log("Reflection start position : " + reflectionStartPosition);
 
-            float angleDiff = Vector3.Angle(this.transform.right, playerToMirror.normalized);
-            if (angleDiff < 0)
-                angleDiff = 360 - angleDiff;
-            //Debug.Log(angleDiff);
+            angleDiff = Vector3.SignedAngle(Vector3.right, playerToMirror.normalized, Vector3.up);
+
+            Debug.Log(angleDiff);
             //Debug.Log(Quaternion.Euler(0, angleDiff * 2, 0));
 
             transform.position = new Vector3(reflectionStartPosition.x, reflectionStartPosition.y, reflectionStartPosition.z);
@@ -53,9 +52,26 @@ public class ReflectionController : PlayerController
 
     void FixedUpdate()
     {
-        //Need fix
+
+
         Vector3 move = new Vector3(-horizontalMovement, 0, verticalMovement) * movementSpeed * Time.deltaTime;
+        //Vector3 moveDir = Quaternion.AngleAxis(angleDiff * 2, Vector3.up) * move;
+
         transform.position += Quaternion.Euler(0, angleDiff * 2, 0) * move;
+    }
+
+    void OnDrawGizmos()
+    {
+        Vector3 move = new Vector3(-horizontalMovement, 0, verticalMovement) * movementSpeed * Time.deltaTime;
+        Vector3 moveDir = Quaternion.Euler(0, angleDiff * 2, 0) * move;
+        DrawHelperAtCenter(moveDir.normalized, Color.magenta, 2f);
+    }
+
+    public override void DrawHelperAtCenter(Vector3 direction, Color color, float scale)
+    {
+        Gizmos.color = color;
+        Vector3 destination = transform.position + direction * scale;
+        Gizmos.DrawLine(transform.position, destination);
     }
 
 }

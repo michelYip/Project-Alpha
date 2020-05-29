@@ -32,17 +32,20 @@ public class PlayerController : MonoBehaviour
     void OnDrawGizmos()
     {
         Color color;
-        color = Color.green;
+
         // local up
+        color = Color.green;
         DrawHelperAtCenter(this.transform.up, color, 2f);
-        color = Color.blue;
+
         // local forward
+        color = Color.blue;
         DrawHelperAtCenter(this.transform.forward, color, 2f);
-        color = Color.red;
+
         // local right
+        color = Color.red;
         DrawHelperAtCenter(this.transform.right, color, 2f);
 
-        /*
+    /*
         color.g -= 0.5f;
         // global up
         DrawHelperAtCenter(Vector3.up, color, 1f);
@@ -52,10 +55,10 @@ public class PlayerController : MonoBehaviour
         color.r -= 0.5f;
         // global right
         DrawHelperAtCenter(Vector3.right, color, 1f);
-        */
+    */
     }
 
-    private void DrawHelperAtCenter(Vector3 direction, Color color, float scale)
+    public virtual void DrawHelperAtCenter(Vector3 direction, Color color, float scale)
     {
         Gizmos.color = color;
         Vector3 destination = transform.position + direction * scale;
