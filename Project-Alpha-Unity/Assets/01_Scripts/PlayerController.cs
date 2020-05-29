@@ -6,9 +6,9 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField]
     public bool     isInit = false;
-    private float   movementSpeed       = 2.5f;
-    private float   horizontalMovement  = 0.0f;
-    private float   verticalMovement    = 0.0f;
+    protected float   movementSpeed       = 2.5f;
+    protected float   horizontalMovement  = 0.0f;
+    protected float   verticalMovement    = 0.0f;
 
     public virtual bool init()
     {

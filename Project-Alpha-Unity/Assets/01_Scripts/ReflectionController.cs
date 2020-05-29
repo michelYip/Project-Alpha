@@ -7,7 +7,13 @@ public class ReflectionController : PlayerController
     public PlayerController player;
     public GameObject mirror;
 
+    [SerializeField]
+    private Vector3 playerToMirror;
+    private float angleDiff;
 
+    /**
+     * Don't forget to initialize a mirror and a player tager first
+     */
     public override bool init()
     {
         //Debug.Log("Reflection init...");
@@ -20,12 +26,18 @@ public class ReflectionController : PlayerController
             Plane mirrorPlane = new Plane(normal, mirror.transform.position);
 
             Vector3 pointOfSymmetry = mirrorPlane.ClosestPointOnPlane(player.transform.position);
-            Vector3 playerToMirror = pointOfSymmetry - player.transform.position;
+            playerToMirror = pointOfSymmetry - player.transform.position;
             Vector3 reflectionStartPosition = pointOfSymmetry + playerToMirror;
 
             //Debug.Log("Point of Symmetry : " + pointOfSymmetry);
             //Debug.Log("Vector from player to mirror : " + playerToMirror);
             //Debug.Log("Reflection start position : " + reflectionStartPosition);
+
+            float angleDiff = Vector3.Angle(this.transform.right, playerToMirror.normalized);
+            if (angleDiff < 0)
+                angleDiff = 360 - angleDiff;
+            //Debug.Log(angleDiff);
+            //Debug.Log(Quaternion.Euler(0, angleDiff * 2, 0));
 
             transform.position = new Vector3(reflectionStartPosition.x, reflectionStartPosition.y, reflectionStartPosition.z);
             isInit = true;
@@ -33,7 +45,7 @@ public class ReflectionController : PlayerController
         }
         else
         {
-            Debug.Log("You should initialize a mirror and a player in my attributes !");
+            //Debug.Log("You should initialize a mirror and a player in my attributes !");
             isInit = false;
             return false;
         }
@@ -41,7 +53,9 @@ public class ReflectionController : PlayerController
 
     void FixedUpdate()
     {
-            
+        //Need fix
+        Vector3 move = new Vector3(-horizontalMovement, 0, verticalMovement) * movementSpeed * Time.deltaTime;
+        transform.position += Quaternion.Euler(0, angleDiff * 2, 0) * move;
     }
 
 }
