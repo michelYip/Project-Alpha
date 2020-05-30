@@ -10,9 +10,11 @@ public class PlayerController : MonoBehaviour
     protected float   horizontalMovement  = 0.0f;
     protected float   verticalMovement    = 0.0f;
 
-    public virtual bool init()
+    public Vector3 localRight   = Vector3.right;
+    public Vector3 localForward = Vector3.forward;
+
+    public virtual bool initEntity()
     {
-        //Debug.Log("Player Init...");
         isInit = true;
         return true;
     }
@@ -31,31 +33,12 @@ public class PlayerController : MonoBehaviour
 
     void OnDrawGizmos()
     {
-        Color color;
-
         // local up
-        color = Color.green;
-        DrawHelperAtCenter(this.transform.up, color, 2f);
-
+        DrawHelperAtCenter(this.transform.up, Color.green, 2f);
         // local forward
-        color = Color.blue;
-        DrawHelperAtCenter(this.transform.forward, color, 2f);
-
+        DrawHelperAtCenter(this.transform.forward, Color.blue, 2f);
         // local right
-        color = Color.red;
-        DrawHelperAtCenter(this.transform.right, color, 2f);
-
-    /*
-        color.g -= 0.5f;
-        // global up
-        DrawHelperAtCenter(Vector3.up, color, 1f);
-        color.b -= 0.5f;
-        // global forward
-        DrawHelperAtCenter(Vector3.forward, color, 1f);
-        color.r -= 0.5f;
-        // global right
-        DrawHelperAtCenter(Vector3.right, color, 1f);
-    */
+        DrawHelperAtCenter(this.transform.right, Color.red, 2f);
     }
 
     public virtual void DrawHelperAtCenter(Vector3 direction, Color color, float scale)

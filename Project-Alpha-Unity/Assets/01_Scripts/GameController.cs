@@ -21,7 +21,7 @@ public class GameController : MonoBehaviour
             if (peListCopy[j].isInit)
                 peListCopy.RemoveAt(j);
             else
-                peListCopy[j].init();
+                peListCopy[j].initEntity();
             i++;
         }
     
@@ -29,7 +29,12 @@ public class GameController : MonoBehaviour
 
     private void fillPlayerEntities()
     {
+        Transform mirror = transform.Find("Mirrors");
         Transform playerEntities = transform.Find("PlayerEntities");
+
+        if (mirror.childCount != playerEntities.childCount - 1)
+            throw new System.Exception("Integration Error : The number of mirrors does not match the number of reflection !");
+
         foreach(Transform child in playerEntities)
         {
             PlayerController pe = child.GetComponent<PlayerController>();
