@@ -8,13 +8,14 @@ public class ReflectionController : PlayerController
     public GameObject mirror;
 
     [SerializeField]
-    public float angleDiffX;
-    public float angleDiffY;
+    private Vector3 targetToMirror;
+    private Plane mirrorPlane;
+    private float angleDiffX;
+    private float angleDiffY;
 
-    /**
-     * Don't forget to initialize a mirror and a player tager first
-     */
-    public override bool initEntity()
+    // Replace Start() to avoid conflit on executing order
+    // NB : When integrating, don't forget to add a mirror and a player target first
+    public override bool InitEntity()
     {
         if (target != null && mirror != null == target.isInit)
         {
@@ -22,22 +23,23 @@ public class ReflectionController : PlayerController
             Vector3 normal;
 
             normal = filter.transform.TransformDirection(filter.mesh.normals[0]);
-            Plane mirrorPlane = new Plane(normal, mirror.transform.position);
+            mirrorPlane = new Plane(normal, mirror.transform.position);
 
             Vector3 pointOfSymmetry = mirrorPlane.ClosestPointOnPlane(target.transform.position);
-            Vector3 playerToMirror = pointOfSymmetry - target.transform.position;
-            Vector3 reflectionStartPosition = pointOfSymmetry + playerToMirror;
+            targetToMirror = pointOfSymmetry - target.transform.position;
+            Vector3 reflectionStartPosition = pointOfSymmetry + targetToMirror;
 
             //Debug.Log("Point of Symmetry : " + pointOfSymmetry);
-            //Debug.Log("Vector from player to mirror : " + playerToMirror);
+            //Debug.Log("Vector from player to mirror : " + targetToMirror);
             //Debug.Log("Reflection start position : " + reflectionStartPosition);
 
-            angleDiffX = Vector3.SignedAngle(target.localRight, playerToMirror, Vector3.up);
-            angleDiffY = Vector3.SignedAngle(target.localForward, playerToMirror, Vector3.up);
+            angleDiffX = Vector3.SignedAngle(target.localRight, targetToMirror, Vector3.up);
+            angleDiffY = Vector3.SignedAngle(target.localForward, targetToMirror, Vector3.up);
             localRight      = Quaternion.Euler(0, angleDiffX * 2, 0) * - target.localRight;
             localForward    = Quaternion.Euler(0, angleDiffY * 2, 0) * - target.localForward;
-
+            
             //Debug.Log(angleDiff);
+            //Debug.Log(lookDir);
 
             transform.position = new Vector3(reflectionStartPosition.x, reflectionStartPosition.y, reflectionStartPosition.z);
             isInit = true;
@@ -50,28 +52,34 @@ public class ReflectionController : PlayerController
             return false;
         }
     }
-
-
+    
+    public override void SetLookAt()
+    {
+        Vector3 pointOfSymmetry = mirrorPlane.ClosestPointOnPlane(target.getLookAt());
+        targetToMirror = pointOfSymmetry - target.getLookAt();
+        lookAt = eyeLevel.ClosestPointOnPlane(pointOfSymmetry + targetToMirror);
+    }
 
     void FixedUpdate()
     {
-        //Fix reflection of reflection
-        //Vector3 inputDir = new Vector3(horizontalMovement, 0, verticalMovement);
-        //inputDir = Quaternion.Euler(0,0,180) * inputDir;
-        //inputDir = Quaternion.Euler(0, angleDiff * 2, 0) * inputDir;
-
+        transform.LookAt(lookAt, Vector3.up);
         Vector3 move = (localRight.normalized * horizontalMovement) + (localForward.normalized * verticalMovement);
-
-        //Vector3 move = inputDir * movementSpeed * Time.deltaTime;
-        //move = Quaternion.Euler(0, Vector3.SignedAngle(localRight, , Vector3.up), 0)
-
         transform.position += move * movementSpeed * Time.deltaTime;
     }
 
+    
+    /*
+     * DEBUG
+     */ 
     void OnDrawGizmos()
     {
-        DrawHelperAtCenter(localRight.normalized, Color.red, 2f);
+        // local forward
         DrawHelperAtCenter(localForward.normalized, Color.blue, 2f);
+        // local right
+        DrawHelperAtCenter(localRight.normalized, Color.red, 2f);
+
+        // target orientaion
+        DrawHelperAtCenter(lookAt - transform.position, Color.cyan, 1f);
     }
 
     public override void DrawHelperAtCenter(Vector3 direction, Color color, float scale)

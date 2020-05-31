@@ -10,7 +10,7 @@ public class GameController : MonoBehaviour
 
     void Awake()
     {
-        fillPlayerEntities();
+        FillPlayerEntities();
 
         int i = 0;
         int j = 0;
@@ -21,13 +21,13 @@ public class GameController : MonoBehaviour
             if (peListCopy[j].isInit)
                 peListCopy.RemoveAt(j);
             else
-                peListCopy[j].initEntity();
+                peListCopy[j].InitEntity();
             i++;
         }
     
     }
 
-    private void fillPlayerEntities()
+    private void FillPlayerEntities()
     {
         Transform mirror = transform.Find("Mirrors");
         Transform playerEntities = transform.Find("PlayerEntities");
