@@ -12,9 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92e0b00daa41c3a478e3e23ddf27ccab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  state: {fileID: 0}
   movementSpeed: 2.25
-  player: {fileID: 0}
+  localRight: {x: 1, y: 0, z: 0}
+  localForward: {x: 0, y: 0, z: 1}
+  lookAt: {x: 0, y: 0, z: 0}
+  target: {fileID: 0}
   mirror: {fileID: 0}
+  targetToMirror: {x: 0, y: 0, z: 0}
 --- !u!1001 &7362021183132550268
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -31,6 +36,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Reflection
+      objectReference: {fileID: 0}
+    - target: {fileID: 2002204156143897612, guid: 428a096c02c685d4589bb387f1fd75be,
+        type: 3}
+      propertyPath: m_UseGravity
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2002204156143897615, guid: 428a096c02c685d4589bb387f1fd75be,
         type: 3}

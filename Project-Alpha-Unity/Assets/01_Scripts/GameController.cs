@@ -18,13 +18,12 @@ public class GameController : MonoBehaviour
         while (peListCopy.Count != 0)
         {
             j = i % peListCopy.Count;
-            if (peListCopy[j].isInit)
+            if (peListCopy[j].IsInit())
                 peListCopy.RemoveAt(j);
             else
                 peListCopy[j].InitEntity();
             i++;
         }
-    
     }
 
     private void FillPlayerEntities()

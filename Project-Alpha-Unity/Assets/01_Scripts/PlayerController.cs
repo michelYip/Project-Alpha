@@ -4,27 +4,61 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public bool     isInit = false;
+    [SerializeField]
+    protected EntityStateController state;
 
     // Movement Attributes
-    protected float   movementSpeed       = 2.5f;
-    protected float   horizontalMovement  = 0.0f;
-    protected float   verticalMovement    = 0.0f;
-    public Vector3 localRight = Vector3.right;
-    public Vector3 localForward = Vector3.forward;
+    [SerializeField]
+    protected float movementSpeed = 2.5f;
+    protected float horizontalMovement = 0.0f;
+    protected float verticalMovement = 0.0f;
+
+    [SerializeField]
+    protected Vector3 localRight = Vector3.right;
+    [SerializeField]
+    protected Vector3 localForward = Vector3.forward;
 
     // Orientation Attributes
+    [SerializeField]
     protected Vector3 lookAt;
+    [SerializeField]
     protected Plane eyeLevel;
-
+    
     // Replace Start() to avoid conflit on executing order
     public virtual bool InitEntity()
     {
+        state = transform.GetComponent<EntityStateController>();
+
         eyeLevel = new Plane(Vector3.up, this.transform.position);
         lookAt = Vector3.zero;
 
-        isInit = true;
+        state.SetIsInit(true);
         return true;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        horizontalMovement = Input.GetAxisRaw("Horizontal") * movementSpeed;
+        verticalMovement = Input.GetAxisRaw("Vertical") * movementSpeed;
+
+        eyeLevel.SetNormalAndPosition(Vector3.up, transform.position);
+        SetLookAt();
+
+        state.SetIsIdle(state.IsGrounded() && horizontalMovement == 0 && verticalMovement == 0);
+    }
+
+    void FixedUpdate()
+    {
+        transform.LookAt(lookAt, Vector3.up);
+        transform.position += new Vector3(horizontalMovement, 0, verticalMovement) * movementSpeed * Time.deltaTime;
+    }
+
+    public bool IsInit()
+    {
+        if (state == null)
+            return false;
+        return state.IsInit();
     }
 
     public virtual void SetLookAt()
@@ -37,25 +71,20 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public Vector3 getLookAt()
+    public Vector3 GetLookAt()
     {
         return lookAt;
     }
 
-    // Update is called once per frame
-    void Update()
+    public Vector3 GetLocalRight()
     {
-        horizontalMovement = Input.GetAxisRaw("Horizontal") * movementSpeed;
-        verticalMovement = Input.GetAxisRaw("Vertical") * movementSpeed;
+        return localRight;
 
-        eyeLevel.SetNormalAndPosition(Vector3.up, transform.position);
-        SetLookAt();
     }
 
-    void FixedUpdate()
+    public Vector3 GetLocalforward()
     {
-        transform.LookAt(lookAt, Vector3.up);
-        transform.position += new Vector3(horizontalMovement, 0, verticalMovement) * movementSpeed * Time.deltaTime;
+        return localForward;
     }
 
     /*

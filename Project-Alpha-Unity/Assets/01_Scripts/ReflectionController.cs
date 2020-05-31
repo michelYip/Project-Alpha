@@ -4,12 +4,16 @@ using UnityEngine;
 
 public class ReflectionController : PlayerController
 {
-    public PlayerController target;
-    public GameObject mirror;
+    [SerializeField]
+    private PlayerController target;
+    [SerializeField]
+    private GameObject mirror;
 
     [SerializeField]
     private Vector3 targetToMirror;
+    [SerializeField]
     private Plane mirrorPlane;
+
     private float angleDiffX;
     private float angleDiffY;
 
@@ -17,7 +21,9 @@ public class ReflectionController : PlayerController
     // NB : When integrating, don't forget to add a mirror and a player target first
     public override bool InitEntity()
     {
-        if (target != null && mirror != null == target.isInit)
+        state = transform.GetComponent<EntityStateController>();
+
+        if (target != null && mirror != null && target.IsInit())
         {
             MeshFilter filter = (MeshFilter)mirror.GetComponent(typeof(MeshFilter));
             Vector3 normal;
@@ -33,30 +39,32 @@ public class ReflectionController : PlayerController
             //Debug.Log("Vector from player to mirror : " + targetToMirror);
             //Debug.Log("Reflection start position : " + reflectionStartPosition);
 
-            angleDiffX = Vector3.SignedAngle(target.localRight, targetToMirror, Vector3.up);
-            angleDiffY = Vector3.SignedAngle(target.localForward, targetToMirror, Vector3.up);
-            localRight      = Quaternion.Euler(0, angleDiffX * 2, 0) * - target.localRight;
-            localForward    = Quaternion.Euler(0, angleDiffY * 2, 0) * - target.localForward;
+            angleDiffX = Vector3.SignedAngle(target.GetLocalRight(), targetToMirror, Vector3.up);
+            angleDiffY = Vector3.SignedAngle(target.GetLocalforward(), targetToMirror, Vector3.up);
+            localRight      = Quaternion.Euler(0, angleDiffX * 2, 0) * - target.GetLocalRight();
+            localForward    = Quaternion.Euler(0, angleDiffY * 2, 0) * - target.GetLocalforward();
             
             //Debug.Log(angleDiff);
             //Debug.Log(lookDir);
 
             transform.position = new Vector3(reflectionStartPosition.x, reflectionStartPosition.y, reflectionStartPosition.z);
-            isInit = true;
+            state.SetIsInit(true);
             return true;
         }
         else
         {
             //Debug.Log("You should initialize a mirror and a player in my attributes !");
-            isInit = false;
+            if (state == null)
+                return false;
+            state.SetIsInit(false);
             return false;
         }
     }
     
     public override void SetLookAt()
     {
-        Vector3 pointOfSymmetry = mirrorPlane.ClosestPointOnPlane(target.getLookAt());
-        targetToMirror = pointOfSymmetry - target.getLookAt();
+        Vector3 pointOfSymmetry = mirrorPlane.ClosestPointOnPlane(target.GetLookAt());
+        targetToMirror = pointOfSymmetry - target.GetLookAt();
         lookAt = eyeLevel.ClosestPointOnPlane(pointOfSymmetry + targetToMirror);
     }
 
@@ -67,6 +75,11 @@ public class ReflectionController : PlayerController
         transform.position += move * movementSpeed * Time.deltaTime;
     }
 
+    public void SetTargetAndMirror(PlayerController target, GameObject mirror)
+    {
+        this.target = target;
+        this.mirror = mirror;
+    }
     
     /*
      * DEBUG
@@ -88,5 +101,4 @@ public class ReflectionController : PlayerController
         Vector3 destination = transform.position + direction * scale;
         Gizmos.DrawLine(transform.position, destination);
     }
-
 }

@@ -62,7 +62,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\01_Scripts\EntityStateController.cs" />
     <Compile Include="Assets\01_Scripts\GameController.cs" />
+    <Compile Include="Assets\01_Scripts\JumpController.cs" />
     <Compile Include="Assets\01_Scripts\PlayerController.cs" />
     <Compile Include="Assets\01_Scripts\ReflectionController.cs" />
     <Reference Include="Unity.Timeline.Editor">
