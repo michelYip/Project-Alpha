@@ -10,7 +10,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <ProjectGuid>{DF61508F-83C1-03B1-CD9E-8E036F33A6AD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -62,6 +63,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\01_Scripts\CameraController.cs" />
     <Compile Include="Assets\01_Scripts\EntityStateController.cs" />
     <Compile Include="Assets\01_Scripts\GameController.cs" />
     <Compile Include="Assets\01_Scripts\JumpController.cs" />

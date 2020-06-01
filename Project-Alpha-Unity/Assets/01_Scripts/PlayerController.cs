@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
 
     // Movement Attributes
     [SerializeField]
-    protected float movementSpeed = 2.5f;
+    protected float movementSpeed;
     protected float horizontalMovement = 0.0f;
     protected float verticalMovement = 0.0f;
 

@@ -12,7 +12,7 @@ public class JumpController : MonoBehaviour
 
     //Jump Attribute
     public float verticalVelocity;
-    private float gravity = 25f;
+    private float gravity = 35f;
     private float jumpForce = 15f;
 
     private void Start()
@@ -24,18 +24,22 @@ public class JumpController : MonoBehaviour
     {
         if (verticalVelocity > 0)
         {
-           verticalVelocity -= gravity * Time.deltaTime;
+           verticalVelocity -= gravity/2 * Time.deltaTime;
         }
-        
-
-        if (Input.GetKeyDown(KeyCode.Space) && state.IsGrounded())
+        else if (!state.IsGrounded())
         {
-            verticalVelocity = jumpForce;
+            verticalVelocity -= gravity * Time.deltaTime;
         }
-
+        else if (state.IsGrounded())
+        {
+            verticalVelocity = 0f;
+            if (Input.GetKeyDown(KeyCode.Space) && state.IsGrounded())
+            {
+                verticalVelocity = jumpForce;
+            }
+        }
         hit = Physics.BoxCast(transform.position + new Vector3(0, extraHeight, 0), transform.localScale / 2, Vector3.down, out hitInfo, transform.rotation, extraHeight);
         state.SetIsGrounded(hit);
-
     }
 
     private void FixedUpdate()
