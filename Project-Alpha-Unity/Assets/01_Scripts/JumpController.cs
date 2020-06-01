@@ -24,12 +24,12 @@ public class JumpController : MonoBehaviour
     {
         if (verticalVelocity > 0)
         {
-           verticalVelocity -= gravity/2 * Time.deltaTime;
+           verticalVelocity -= gravity * Time.deltaTime;
         }
-        else if (!state.IsGrounded())
-        {
-            verticalVelocity -= gravity * Time.deltaTime;
-        }
+        //else if (!state.IsGrounded())
+        //{
+        //    verticalVelocity -= gravity * Time.deltaTime;
+        //}
         else if (state.IsGrounded())
         {
             verticalVelocity = 0f;
