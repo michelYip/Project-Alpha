@@ -5,11 +5,17 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
+    public static GameController current;
+
     [SerializeField]
     private List<PlayerController> peList = new List<PlayerController>();
 
+    public static int PickableLayerMask = 1 << 8;
+
     void Awake()
     {
+        current = this;
+
         FillPlayerEntities();
 
         int i = 0;

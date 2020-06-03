@@ -68,6 +68,7 @@
     <Compile Include="Assets\01_Scripts\EntityStateController.cs" />
     <Compile Include="Assets\01_Scripts\EventManager.cs" />
     <Compile Include="Assets\01_Scripts\GameController.cs" />
+    <Compile Include="Assets\01_Scripts\GrabController.cs" />
     <Compile Include="Assets\01_Scripts\JumpController.cs" />
     <Compile Include="Assets\01_Scripts\PlayerController.cs" />
     <Compile Include="Assets\01_Scripts\ReflectionController.cs" />
@@ -110,6 +111,9 @@
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>M:/Bibliotheque/Documents/Unity Projects/Project-Alpha/Project-Alpha-Unity/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.ProGrids">
+      <HintPath>M:/Bibliotheque/Documents/Unity Projects/Project-Alpha/Project-Alpha-Unity/Library/ScriptAssemblies/Unity.ProGrids.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.VSCode.Editor">
       <HintPath>M:/Bibliotheque/Documents/Unity Projects/Project-Alpha/Project-Alpha-Unity/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
     </Reference>
@@ -118,6 +122,9 @@
     </Reference>
     <Reference Include="Unity.RenderPipelines.Core.Runtime">
       <HintPath>M:/Bibliotheque/Documents/Unity Projects/Project-Alpha/Project-Alpha-Unity/Library/ScriptAssemblies/Unity.RenderPipelines.Core.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.ProGrids.Editor">
+      <HintPath>M:/Bibliotheque/Documents/Unity Projects/Project-Alpha/Project-Alpha-Unity/Library/ScriptAssemblies/Unity.ProGrids.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>M:/Bibliotheque/Documents/Unity Projects/Project-Alpha/Project-Alpha-Unity/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
@@ -148,6 +155,18 @@
     </Reference>
     <Reference Include="UnityEditor.UI">
       <HintPath>M:/Bibliotheque/Documents/Unity Projects/Project-Alpha/Project-Alpha-Unity/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.ProBuilder">
+      <HintPath>M:/Bibliotheque/Documents/Unity Projects/Project-Alpha/Project-Alpha-Unity/Library/ScriptAssemblies/Unity.ProBuilder.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.ProBuilder.Editor">
+      <HintPath>M:/Bibliotheque/Documents/Unity Projects/Project-Alpha/Project-Alpha-Unity/Library/ScriptAssemblies/Unity.ProBuilder.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.ProBuilder.AssetIdRemapUtility">
+      <HintPath>M:/Bibliotheque/Documents/Unity Projects/Project-Alpha/Project-Alpha-Unity/Library/ScriptAssemblies/Unity.ProBuilder.AssetIdRemapUtility.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.ProBuilder.AddOns.Editor">
+      <HintPath>M:/Bibliotheque/Documents/Unity Projects/Project-Alpha/Project-Alpha-Unity/Library/ScriptAssemblies/Unity.ProBuilder.AddOns.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>M:/Program Files (x86)/2019.3.2f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>

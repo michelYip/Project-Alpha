@@ -23,7 +23,14 @@ public class PlayerController : MonoBehaviour
     protected Vector3 lookAt;
     [SerializeField]
     protected Plane eyeLevel;
-    
+
+    public bool IsInit()
+    {
+        if (state == null)
+            return false;
+        return state.IsInit();
+    }
+
     // Replace Start() to avoid conflit on executing order
     public virtual bool InitEntity()
     {
@@ -54,13 +61,11 @@ public class PlayerController : MonoBehaviour
         transform.position += new Vector3(horizontalMovement, 0, verticalMovement) * movementSpeed * Time.deltaTime;
     }
 
-    public bool IsInit()
+    public EntityStateController GetState()
     {
-        if (state == null)
-            return false;
-        return state.IsInit();
+        return state;
     }
-
+    
     public virtual void SetLookAt()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -100,7 +105,7 @@ public class PlayerController : MonoBehaviour
         DrawHelperAtCenter(localRight, Color.red, 2f);
 
         // target orientaion
-        DrawHelperAtCenter(lookAt - transform.position, Color.magenta, 1f);
+        //DrawHelperAtCenter(lookAt - transform.position, Color.magenta, 1f);
     }
 
     public virtual void DrawHelperAtCenter(Vector3 direction, Color color, float scale)

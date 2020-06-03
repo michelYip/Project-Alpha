@@ -10,6 +10,8 @@ public class EntityStateController : MonoBehaviour
     private bool isGrounded;
     [SerializeField]
     private bool isIdle;
+    [SerializeField]
+    private bool isGrabing;
 
     public void SetIsInit(bool isInit)
     {
@@ -37,4 +39,15 @@ public class EntityStateController : MonoBehaviour
     {
         return isIdle;
     }
+
+    public void SetIsGrabing(bool isGrabing)
+    {
+        this.isGrabing = isGrabing;
+    }
+    public bool IsGrabing()
+    {
+        return isGrabing;
+    }
+
+
 }

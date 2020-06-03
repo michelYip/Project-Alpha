@@ -92,7 +92,7 @@ public class ReflectionController : PlayerController
         DrawHelperAtCenter(localRight.normalized, Color.red, 2f);
 
         // target orientaion
-        DrawHelperAtCenter(lookAt - transform.position, Color.cyan, 1f);
+        //DrawHelperAtCenter(lookAt - transform.position, Color.cyan, 1f);
     }
 
     public override void DrawHelperAtCenter(Vector3 direction, Color color, float scale)
