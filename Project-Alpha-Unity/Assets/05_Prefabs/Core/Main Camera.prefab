@@ -97,6 +97,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  smoothSpeed: 0.125
-  offsetPos: {x: 0, y: 16, z: -12}
-  offsetRot: {x: 0.34071866, y: 0.08189965, z: -0.029809032, w: 0.9361168}
+  offsetPos: {x: 0, y: 10, z: -15}
+  offsetRot: {x: 20, y: 0, z: 0}

@@ -21,7 +21,10 @@ public class ReflectionController : PlayerController
     // NB : When integrating, don't forget to add a mirror and a player target first
     public override bool InitEntity()
     {
+        controller = this.GetComponent<CharacterController>();
         state = transform.GetComponent<EntityStateController>();
+
+        controller.enabled = false;
 
         if (target != null && mirror != null && target.IsInit())
         {
@@ -43,11 +46,14 @@ public class ReflectionController : PlayerController
             angleDiffY = Vector3.SignedAngle(target.GetLocalforward(), targetToMirror, Vector3.up);
             localRight      = Quaternion.Euler(0, angleDiffX * 2, 0) * - target.GetLocalRight();
             localForward    = Quaternion.Euler(0, angleDiffY * 2, 0) * - target.GetLocalforward();
-            
+
             //Debug.Log(angleDiff);
             //Debug.Log(lookDir);
+            Vector3 startPosition = new Vector3(reflectionStartPosition.x, reflectionStartPosition.y, reflectionStartPosition.z);
 
-            transform.position = new Vector3(reflectionStartPosition.x, reflectionStartPosition.y, reflectionStartPosition.z);
+            transform.position = startPosition;
+            controller.enabled = true;
+            //Debug.Log(startPosition);
             state.SetIsInit(true);
             return true;
         }
@@ -63,16 +69,28 @@ public class ReflectionController : PlayerController
     
     public override void SetLookAt()
     {
-        Vector3 pointOfSymmetry = mirrorPlane.ClosestPointOnPlane(target.GetLookAt());
-        targetToMirror = pointOfSymmetry - target.GetLookAt();
-        lookAt = eyeLevel.ClosestPointOnPlane(pointOfSymmetry + targetToMirror);
+        Vector3 lookAtPoS = mirrorPlane.ClosestPointOnPlane(target.GetLookAt());
+        Vector3 lookAtToPoS = lookAtPoS - target.GetLookAt();
+
+        Vector3 targetPoS = mirrorPlane.ClosestPointOnPlane(target.transform.position);
+        Vector3 targetToPoS = targetPoS - target.transform.position;
+
+        Vector3 targetReflectionToCurrentPos = transform.position - (targetPoS + targetToPoS);
+
+        lookAt = eyeLevel.ClosestPointOnPlane((lookAtPoS + lookAtToPoS) + targetReflectionToCurrentPos);
     }
 
     void FixedUpdate()
     {
-        transform.LookAt(lookAt, Vector3.up);
-        Vector3 move = (localRight.normalized * horizontalMovement) + (localForward.normalized * verticalMovement);
-        transform.position += move * movementSpeed * Time.deltaTime;
+        Vector3 moveDir = ((localRight * horizontalMovement) + (localForward * verticalMovement)).normalized * movementSpeed;
+        Vector3 jumpMotion = new Vector3(0, verticalVelocity, 0);
+        controller.Move((moveDir + jumpMotion) * Time.deltaTime);
+
+
+        Vector3 lookAtAngle = lookAt - transform.position;
+        float targetAngle = Mathf.Atan2(lookAtAngle.x, lookAtAngle.z) * Mathf.Rad2Deg;
+        float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref smoothRotationVelocity, smoothRotationTime);
+        transform.rotation = Quaternion.Euler(0f, angle, 0f);
     }
 
     public void SetTargetAndMirror(PlayerController target, GameObject mirror)

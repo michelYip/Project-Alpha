@@ -21,22 +21,23 @@ public class GrabController : MonoBehaviour
         //When holding left click
         if (Input.GetMouseButtonDown(0))
         {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-            //if the entity is close enough to a pickable object, pick it
-            if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, grabDistance, GameController.PickableLayerMask))
+            
+            if (Physics.Raycast(ray.origin, ray.direction, out hit, Mathf.Infinity, GameController.PickableLayerMask))
             {
-                pickedObject = hit.transform;
-                pickedObject.GetComponent<Rigidbody>().isKinematic = true;
-                //LeanTween.moveLocal(pickedObject.transform.gameObject, transform.position + new Vector3(0, 4, 0), 2f).setEaseInQuad();
-                state.SetIsGrabing(true);
+                if ((hit.transform.position - transform.position).magnitude <= grabDistance)
+                {
+                    pickedObject = hit.transform;
+                    pickedObject.GetComponent<Rigidbody>().isKinematic = true;
+                    state.SetIsGrabing(true);
+                }
             }
         }
 
         if (Input.GetMouseButtonUp(0))
         {
             ThrowObject(ref pickedObject);
-            //pickedObject = null;
-            //state.SetIsGrabing(false);
         }
 
     }
@@ -57,14 +58,13 @@ public class GrabController : MonoBehaviour
     {
         if (state.IsGrabing() && pickedObject != null)
         {
-            //Debug.Log("Holding object");
             pickedObject.transform.position = transform.position + new Vector3(0, 3, 0);
-        }
-        
+        }        
     }
 
     void OnDrawGizmos()
     {
+        /*
         if (pickedObject != null)
         {
             Gizmos.color = Color.cyan;
@@ -76,7 +76,7 @@ public class GrabController : MonoBehaviour
             Gizmos.color = Color.red;
         }
         Gizmos.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * grabDistance);
-
+        */
     }
 
 }

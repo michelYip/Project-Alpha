@@ -12,12 +12,12 @@ public class CameraController : MonoBehaviour
     [SerializeField]
     private Vector3 offsetPos;
     [SerializeField]
-    private Quaternion offsetRot;
+    private Vector3 offsetRot;
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        transform.rotation = offsetRot;
+        transform.rotation = Quaternion.Euler(offsetRot);
 
         Vector3 targetPosition = target.position + offsetPos;
         Vector3 smoothedPosition = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothSpeed);
