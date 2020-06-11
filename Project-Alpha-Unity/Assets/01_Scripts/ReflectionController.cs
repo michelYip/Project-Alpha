@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,9 +9,7 @@ public class ReflectionController : PlayerController
     [SerializeField]
     private GameObject mirror;
 
-    [SerializeField]
     private Vector3 targetToMirror;
-    [SerializeField]
     private Plane mirrorPlane;
 
     private float angleDiffX;
@@ -82,7 +80,7 @@ public class ReflectionController : PlayerController
 
     void FixedUpdate()
     {
-        Vector3 moveDir = ((localRight * horizontalMovement) + (localForward * verticalMovement)).normalized * movementSpeed;
+        moveDir = ((localRight * horizontalMovement) + (localForward * verticalMovement)).normalized * movementSpeed;
         Vector3 jumpMotion = new Vector3(0, verticalVelocity, 0);
         controller.Move((moveDir + jumpMotion) * Time.deltaTime);
 

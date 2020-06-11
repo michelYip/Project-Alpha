@@ -4,50 +4,38 @@ using UnityEngine;
 
 public class EntityStateController : MonoBehaviour
 {
-    [SerializeField]
     private bool isInit;
-    [SerializeField]
+    public void SetIsInit(bool isInit) => this.isInit = isInit;
+    public bool IsInit() => isInit;
+
     private bool isGrounded;
-    [SerializeField]
+    public void SetIsGrounded(bool isGrounded) => this.isGrounded = isGrounded;
+    public bool IsGrounded() => isGrounded;
+
     private bool isIdle;
-    [SerializeField]
+    public void SetIsIdle(bool isIdle) => this.isIdle = isIdle;
+    public bool IsIdle()=> isIdle;
+
     private bool isGrabing;
+    public void SetIsGrabing(bool isGrabing) => this.isGrabing = isGrabing;
+    public bool IsGrabing() => isGrabing;
 
-    public void SetIsInit(bool isInit)
+    private bool isPushing;
+    public void SetIsPushing(bool isPushing)
     {
-        this.isInit = isInit;
+        this.isPushing = isPushing;
+        this.canMove = (isPushing) ? false : true;
     }
-    public bool IsInit()
-    {
-        return isInit;
-    }
+    public bool IsPushing() => isPushing;
 
-    public void SetIsGrounded(bool isGrounded)
+    private bool isInteracting;
+    public void SetIsInteracting(bool isInteracting)
     {
-        this.isGrounded = isGrounded;
+        this.isInteracting = isInteracting;
+        //Need need to deactivate canMove
     }
-    public bool IsGrounded()
-    {
-        return isGrounded;
-    }
+    public bool IsInteracting() => isInteracting;
 
-    public void SetIsIdle(bool isIdle)
-    {
-        this.isIdle = isIdle;
-    }
-    public bool IsIdle()
-    {
-        return isIdle;
-    }
-
-    public void SetIsGrabing(bool isGrabing)
-    {
-        this.isGrabing = isGrabing;
-    }
-    public bool IsGrabing()
-    {
-        return isGrabing;
-    }
-
-
+    private bool canMove = true;
+    public bool CanMove() => canMove;
 }

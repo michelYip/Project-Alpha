@@ -69,7 +69,10 @@
     <Compile Include="Assets\01_Scripts\EventManager.cs" />
     <Compile Include="Assets\01_Scripts\GameController.cs" />
     <Compile Include="Assets\01_Scripts\GrabController.cs" />
+    <Compile Include="Assets\01_Scripts\Interactable.cs" />
+    <Compile Include="Assets\01_Scripts\InteractionController.cs" />
     <Compile Include="Assets\01_Scripts\PlayerController.cs" />
+    <Compile Include="Assets\01_Scripts\PushController.cs" />
     <Compile Include="Assets\01_Scripts\ReflectionController.cs" />
     <Compile Include="Assets\10_PublicAssets\LeanTween\Examples\Archived\OldGUIExamplesCS.cs" />
     <Compile Include="Assets\10_PublicAssets\LeanTween\Examples\Archived\TestingPunch.cs" />

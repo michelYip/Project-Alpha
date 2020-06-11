@@ -10,11 +10,18 @@ public class GameController : MonoBehaviour
     [SerializeField]
     private List<PlayerController> peList = new List<PlayerController>();
 
+    public static Camera mainCamera;
+
     public static int PickableLayerMask = 1 << 8;
+    public static int PushableLayerMask = 1 << 9;
+    public static int InteractableLayerMask = 1 << 10;
+    public static int WorldLimitLayerMask = 1 << 11;
+    public static int PlayerLayerMask = 1 << 12;
 
     void Awake()
     {
         current = this;
+        mainCamera = Camera.main;
 
         FillPlayerEntities();
 

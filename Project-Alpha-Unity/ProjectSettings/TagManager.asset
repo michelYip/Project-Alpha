@@ -15,10 +15,10 @@ TagManager:
   - 
   - 
   - Pickable
-  - 
-  - 
-  - 
-  - 
+  - Pushable
+  - Interactable
+  - WorldLimit
+  - Player
   - 
   - 
   - 

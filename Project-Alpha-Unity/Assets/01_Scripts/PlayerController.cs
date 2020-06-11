@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     protected float smoothRotationTime = 0.1f;
 
     // Movement Attributes
+    protected Vector3 moveDir;
     protected Vector3 localRight = Vector3.right;
     protected Vector3 localForward = Vector3.forward;
     protected float movementSpeed = 10.0f;
@@ -56,10 +57,9 @@ public class PlayerController : MonoBehaviour
     {
         horizontalMovement = Input.GetAxisRaw("Horizontal");
         verticalMovement = Input.GetAxisRaw("Vertical");
-        
+
         eyeLevel.SetNormalAndPosition(Vector3.up, transform.position);
         SetLookAt();
-
         if (!state.IsGrounded())
         {
             verticalVelocity -= gravity * Time.deltaTime;
@@ -69,7 +69,7 @@ public class PlayerController : MonoBehaviour
             if (verticalVelocity < -gravity)
             {
                 verticalVelocity = -gravity;
-            }   
+            }
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 verticalVelocity = jumpForce;
@@ -83,7 +83,7 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        Vector3 moveDir = new Vector3(horizontalMovement, 0, verticalMovement).normalized * movementSpeed;
+        moveDir = new Vector3(horizontalMovement, 0, verticalMovement).normalized * movementSpeed;
         Vector3 jumpMotion = new Vector3(0, verticalVelocity, 0);
         controller.Move((moveDir + jumpMotion) * Time.deltaTime);
 
@@ -96,14 +96,11 @@ public class PlayerController : MonoBehaviour
         //Debug.Log(lookAt * smoothRotation);
     }
 
-    public EntityStateController GetState()
-    {
-        return state;
-    }
+    public EntityStateController GetState() => state;
     
     public virtual void SetLookAt()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Ray ray = GameController.mainCamera.ScreenPointToRay(Input.mousePosition);
         float enter = 0;
         if (eyeLevel.Raycast(ray, out enter))
         {
@@ -111,21 +108,15 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public Vector3 GetLookAt()
-    {
-        return lookAt;
-    }
+    public Vector3 GetLookAt() => lookAt;
 
-    public Vector3 GetLocalRight()
-    {
-        return localRight;
+    public Vector3 GetLocalRight() => localRight;
 
-    }
+    public Vector3 GetLocalforward() => localForward;
 
-    public Vector3 GetLocalforward()
-    {
-        return localForward;
-    }
+    public Vector3 GetMoveDir() => moveDir;
+
+    public void SetMoveSpeed(float moveSpeed) => this.movementSpeed = moveSpeed;
 
     /*
      * DEBUG

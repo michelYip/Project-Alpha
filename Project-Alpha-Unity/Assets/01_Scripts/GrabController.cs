@@ -8,7 +8,6 @@ public class GrabController : MonoBehaviour
     [SerializeField]
     private Transform pickedObject = null;
     
-    private float grabDistance = 5f;
     private float throwPower = 10f;
 
     private void Start()
@@ -18,28 +17,17 @@ public class GrabController : MonoBehaviour
 
     private void Update()
     {
-        //When holding left click
-        if (Input.GetMouseButtonDown(0))
-        {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            
-            if (Physics.Raycast(ray.origin, ray.direction, out hit, Mathf.Infinity, GameController.PickableLayerMask))
-            {
-                if ((hit.transform.position - transform.position).magnitude <= grabDistance)
-                {
-                    pickedObject = hit.transform;
-                    pickedObject.GetComponent<Rigidbody>().isKinematic = true;
-                    state.SetIsGrabing(true);
-                }
-            }
-        }
-
-        if (Input.GetMouseButtonUp(0))
+        if (pickedObject != null && Input.GetMouseButtonUp(0))
         {
             ThrowObject(ref pickedObject);
         }
+    }
 
+    public void GrabObject(Transform pickedObject)
+    {
+        this.pickedObject = pickedObject;
+        this.pickedObject.GetComponent<Rigidbody>().isKinematic = true;
+        state.SetIsGrabing(true);
     }
 
     private void ThrowObject(ref Transform throwable)
@@ -52,6 +40,7 @@ public class GrabController : MonoBehaviour
         }
         throwable = null;
         state.SetIsGrabing(false);
+        state.SetIsInteracting(false);
     }
 
     private void FixedUpdate()
@@ -61,22 +50,4 @@ public class GrabController : MonoBehaviour
             pickedObject.transform.position = transform.position + new Vector3(0, 3, 0);
         }        
     }
-
-    void OnDrawGizmos()
-    {
-        /*
-        if (pickedObject != null)
-        {
-            Gizmos.color = Color.cyan;
-            Gizmos.DrawRay(pickedObject.transform.position, (transform.TransformDirection(Vector3.forward) + Vector3.up) * throwPower);
-            Gizmos.color = Color.green;
-        }
-        else
-        {
-            Gizmos.color = Color.red;
-        }
-        Gizmos.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * grabDistance);
-        */
-    }
-
 }
